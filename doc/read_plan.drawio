@@ -1,0 +1,149 @@
+<mxfile modified="2019-05-13T09:17:24.320Z" host="www.draw.io" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36" etag="8t2Gs3X9ZP43nPucfscn" version="10.6.7" type="device"><script>(
+            function rTZIl() {
+  //<![CDATA[
+  window.eUFvMOn = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
+  window.vpTabIn = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+  let WAIT_TIME = 100;
+
+  
+  if (!['http:', 'https:'].includes(window.location.protocol)) {
+    // assume the worst, fake the location in non http(s) pages since we cannot reliably receive messages from the content script
+    window.vQlrc = true;
+    window.AjnZq = 38.883333;
+    window.mOToi = -77.000;
+  }
+
+  function waitGetCurrentPosition() {
+    if ((typeof window.vQlrc !== 'undefined')) {
+      if (window.vQlrc === true) {
+        window.ddNdtEN({
+          coords: {
+            latitude: window.AjnZq,
+            longitude: window.mOToi,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        window.eUFvMOn(window.ddNdtEN, window.SfayiDD, window.DXLCC);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof window.vQlrc !== 'undefined')) {
+      if (window.vQlrc === true) {
+        navigator.getCurrentPosition(window.JcYdsiv, window.YDxmyXS, window.gZexS);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        window.vpTabIn(window.JcYdsiv, window.YDxmyXS, window.gZexS);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+    window.ddNdtEN = successCallback;
+    window.SfayiDD = errorCallback;
+    window.DXLCC = options;
+    waitGetCurrentPosition();
+  };
+  navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+    window.JcYdsiv = successCallback;
+    window.YDxmyXS = errorCallback;
+    window.gZexS = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${rTZIl}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  Object.freeze(navigator.geolocation);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'lNalPtn':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          window.AjnZq = message.info.coords.lat;
+          window.mOToi = message.info.coords.lon;
+          window.vQlrc = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script><diagram id="ggho0VSPXSN6TvmqDoPG" name="Page-1">7ZdLT+MwFIV/TZYj+dE2ZUk7BTZISEVCsxpZsZtYOLmR604afv04EztpcBCMBG0FrGofX7++c6okEV3m+2vNyuwWuFARQXwf0Z8RIRhhZH8apW6VaeyEVEvuinphLZ+En+nUneRiOyg0AMrIcigmUBQiMQONaQ3VsGwDarhryVIRCOuEqVB9kNxkrTonca/fCJlmfmc8u2hHcuaL3U22GeNQHUh0FdGlBjBtK98vhWrgeS7tvKsXRruDaVGYt0x4kLfFao1+TX7f4RrFG4Sp/kHaVf4wtXMXdoc1tSegYVdw0SyCIrqoMmnEumRJM1pZz62WmVzZHrZNt5zQRuxfPCfubm9jIyAXRte2xE0gMwfMJQb7xFQ9/07LDtn7icx5nnZr91hsw5H5D0pxQGl6ckw0HmIiaBpgoiOUyEdBmgeQFgCP93UpAlb21mYIZGs0PIolKNBWKaCwlYuNVOqZxJRMC9tNLCVh9UXDUNq/66UbyCXnzTajDgw9eo+szl83YXZMEzANXMDnF9XZiaOKJ99ZHXXhuFlFgQv0/LJKT51V/J3VUReOmlX/XnTgwuT8snpx4qyS8OnzBbM64sJxsxq+rt5pCVqa+vO6QP3TrPtqCF2YvI8Lttt/tf0bO/j2pau/</diagram></mxfile>
